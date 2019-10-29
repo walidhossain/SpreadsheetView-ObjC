@@ -1,0 +1,16 @@
+PODS:
+  - SpreadsheetView-ObjC (0.1.0)
+
+DEPENDENCIES:
+  - SpreadsheetView-ObjC (from `../`)
+
+EXTERNAL SOURCES:
+  SpreadsheetView-ObjC:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  SpreadsheetView-ObjC: 5577224763ef3b9108bb112d46d2f5a25bdfb89c
+
+PODFILE CHECKSUM: f7dd2c98e8451e2047830a258ddf9092c8644c15
+
+COCOAPODS: 1.8.4
