@@ -1242,8 +1242,10 @@
     NSIndexPath *indexPath = [self indexPathForItemAtPoint:[touch locationInView:self]];
     Cell *cell = [self cellForItemAtIndexPath:indexPath];
     if (self.allowsMultipleSelection && touch && indexPath && cell && cell.isUserInteractionEnabled && [self.selectedIndexPaths containsObject:indexPath]) {
-        if ([self.delegate spreadsheetView:self shouldDeselectItemAt:indexPath]) {
-            [self deselectItemAtIndexPath:indexPath];
+        if ([self.delegate respondsToSelector:@selector(spreadsheetView:shouldDeselectItemAt:)]) {
+            if ([self.delegate spreadsheetView:self shouldDeselectItemAt:indexPath]) {
+                [self deselectItemAtIndexPath:indexPath];
+            }
         }
     }else{
         [self selectItemsOnTouches:touches highlightedItems:highlightedItems];
@@ -1274,14 +1276,16 @@
             return;
         }
         if (self.delegate) {
-            if ([self.delegate spreadsheetView:self shouldHighlightItemAt:indexPath]) {
-                [self.highlightedIndexPaths addObject:indexPath];
-                NSArray<Cell*> *cells = [self cellsForItemAt:indexPath];
-                for (Cell *cell in cells) {
-                    cell.highlighted = YES;
-                }
-                if (self.delegate) {
-                    [self.delegate spreadsheetView:self didHighlightItemAt:indexPath];
+            if ([self.delegate respondsToSelector:@selector(spreadsheetView:shouldHighlightItemAt:)]) {
+                if ([self.delegate spreadsheetView:self shouldHighlightItemAt:indexPath]) {
+                    [self.highlightedIndexPaths addObject:indexPath];
+                    NSArray<Cell*> *cells = [self cellsForItemAt:indexPath];
+                    for (Cell *cell in cells) {
+                        cell.highlighted = YES;
+                    }
+                    if (self.delegate) {
+                        [self.delegate spreadsheetView:self didHighlightItemAt:indexPath];
+                    }
                 }
             }
         }
@@ -1319,17 +1323,19 @@
 -(void)selectItemAtIndexPath:(NSIndexPath*)indexPath
 {
     NSArray<Cell*> *cells = [self cellsForItemAt:indexPath];
-    if (cells.count>0 && [self.delegate spreadsheetView:self shouldSelectItemAt:indexPath]) {
-        if (!self.allowsMultipleSelection) {
-            [self.selectedIndexPaths removeObject:indexPath];
-            [self deselectAllItems];
-        }
-        for (Cell *cell in cells) {
-            cell.selected = YES;
-        }
-        if (self.delegate) {
-            [self.delegate spreadsheetView:self didSelectItemAt:indexPath];
-            [self.selectedIndexPaths addObject:indexPath];
+    if ([self.delegate respondsToSelector:@selector(spreadsheetView:shouldSelectItemAt:)]) {
+        if (cells.count>0 && [self.delegate spreadsheetView:self shouldSelectItemAt:indexPath]) {
+            if (!self.allowsMultipleSelection) {
+                [self.selectedIndexPaths removeObject:indexPath];
+                [self deselectAllItems];
+            }
+            for (Cell *cell in cells) {
+                cell.selected = YES;
+            }
+            if (self.delegate) {
+                [self.delegate spreadsheetView:self didSelectItemAt:indexPath];
+                [self.selectedIndexPaths addObject:indexPath];
+            }
         }
     }
 }
