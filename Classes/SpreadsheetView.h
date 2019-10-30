@@ -34,7 +34,7 @@
 @property (nonatomic, strong, nullable) id <SpreadsheetViewDataSource> dataSource;
 @property (nonatomic, strong, nullable) id <SpreadsheetViewDelegate> delegate;
 @property (nonatomic, assign) CGSize intercellSpacing;
-@property (nonatomic, nonnull) GridStyle *gridStyle;
+@property (nonatomic, strong, nonnull) GridStyle *gridStyle;
 @property (nonatomic, assign) BOOL allowsSelection;
 @property (nonatomic, assign) BOOL allowsMultipleSelection;
 @property (nonatomic, assign) BOOL showsVerticalScrollIndicator;

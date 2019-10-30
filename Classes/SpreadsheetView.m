@@ -57,7 +57,7 @@
     self.needsReload = YES;
     
     self.intercellSpacing = CGSizeMake(1, 1);
-    self.gridStyle = [[GridStyle alloc] initWithWidth:1 color:UIColor.darkGrayColor];
+    self.gridStyle = [[GridStyle alloc] initWithWidth:1 color:UIColor.lightGrayColor];
     self.layoutProperties = [[LayoutProperties alloc] init];
     self.allowsSelection = YES;
     self.allowsMultipleSelection = NO;
@@ -961,7 +961,6 @@
     if ([dataSource respondsToSelector:@selector(frozenColumnsInSpreadsheetView:)]) {
         frozenColumns = [dataSource frozenColumnsInSpreadsheetView:self];
     }
-    
     NSInteger frozenRows = 0;
     if ([dataSource respondsToSelector:@selector(frozenRowsInSpreadsheetView:)]) {
         frozenRows = [dataSource frozenRowsInSpreadsheetView:self];
@@ -979,38 +978,33 @@
     if(frozenRows <= numberOfRows){} else {
         assert("`frozenRows(in:) must return a value less than or equal to `numberOfRows(in:)`");
     }
-
-    NSArray<CellRange *> *mergedCells;
-    NSMutableDictionary<Location*, CellRange*> *mergedCellLayouts;
-    if ([dataSource respondsToSelector:@selector(mergedCellsInSpreadsheetView:)]) {
-        mergedCells = [dataSource mergedCellsInSpreadsheetView:self];
-        mergedCellLayouts = [[NSMutableDictionary alloc] init];
-        for (CellRange *mergedCell in mergedCells) {
-            if ((mergedCell.from.column < frozenColumns && mergedCell.to.column >= frozenColumns) || (mergedCell.from.row < frozenRows && mergedCell.to.row >= frozenRows)) {
-                assert("cannot merge frozen and non-frozen column or rows");
-            }
-            for (NSInteger column=mergedCell.from.column;column <= mergedCell.to.column;column++) {
-                for (NSInteger row=mergedCell.from.row;row<=mergedCell.to.row;row++) {
-                    if(column < numberOfColumns && row < numberOfRows){} else {
-                        assert("the range of `mergedCell` cannot exceed the total column or row count");
-                    }
-                    Location* location = [[Location alloc] initWithRow:row column:column];
-                    if (mergedCellLayouts[location]) {
-                        if([mergedCellLayouts[location] containsCellRange:mergedCell]) {
-                            continue;
-                        }
-                        if ([mergedCell containsCellRange:mergedCellLayouts[location]]) {
-                            mergedCellLayouts[location] = nil;
-                        } else {
-                            assert("cannot merge cells in a range that overlap existing merged cells");
-                        }
-                    }
-                    mergedCell->size = CGSizeZero;
-                    mergedCellLayouts[location] = mergedCell;
+    
+    NSArray<CellRange *> *mergedCells = [dataSource mergedCellsInSpreadsheetView:self];
+    NSMutableDictionary<Location*, CellRange*> *mergedCellLayouts = [[NSMutableDictionary alloc] init];
+    for (CellRange *mergedCell in mergedCells) {
+        if ((mergedCell.from.column < frozenColumns && mergedCell.to.column >= frozenColumns) || (mergedCell.from.row < frozenRows && mergedCell.to.row >= frozenRows)) {
+            assert("cannot merge frozen and non-frozen column or rows");
+        }
+        for (NSInteger column=mergedCell.from.column;column <= mergedCell.to.column;column++) {
+            for (NSInteger row=mergedCell.from.row;row<=mergedCell.to.row;row++) {
+                if(column < numberOfColumns && row < numberOfRows){} else {
+                    assert("the range of `mergedCell` cannot exceed the total column or row count");
                 }
+                Location* location = [[Location alloc] initWithRow:row column:column];
+                if (mergedCellLayouts[location]) {
+                    if([mergedCellLayouts[location] containsCellRange:mergedCell]) {
+                        continue;
+                    }
+                    if ([mergedCell containsCellRange:mergedCellLayouts[location]]) {
+                        mergedCellLayouts[location] = nil;
+                    } else {
+                        assert("cannot merge cells in a range that overlap existing merged cells");
+                    }
+                }
+                mergedCell->size = CGSizeZero;
+                mergedCellLayouts[location] = mergedCell;
             }
         }
-        
     }
     NSMutableArray<NSNumber *> *columnWidthCache = [[NSMutableArray alloc] init];
     CGFloat frozenColumnWidth = 0;

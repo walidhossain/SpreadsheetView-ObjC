@@ -18,7 +18,7 @@ typedef enum  {
 
 @property (nonatomic, assign) GridStyleType gridStyle;
 @property (nonatomic, assign) CGFloat width;
-@property (nonatomic, strong)   UIColor *color;
+@property (nonatomic, strong) UIColor *color;
 
 -(instancetype)initWithWidth:(CGFloat)width color:(UIColor*)color;
 

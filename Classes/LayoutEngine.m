@@ -558,7 +558,7 @@
     self.scrollView.visibleCells.addresses = self.visibleCellAddresses;
     
     [self.scrollView.visibleVerticalGridlines minus:self.visibleVerticalGridAddresses];
-    for (SPAddress *address in self.scrollView.visibleCells.addresses) {
+    for (SPAddress *address in self.scrollView.visibleVerticalGridlines.addresses) {
         Gridline *gridline = self.scrollView.visibleVerticalGridlines[address];
         if (gridline) {
             [gridline removeFromSuperlayer];
@@ -569,7 +569,7 @@
     self.scrollView.visibleVerticalGridlines.addresses = self.visibleVerticalGridAddresses;
     
     [self.scrollView.visibleHorizontalGridlines minus:self.visibleHorizontalGridAddresses];
-    for (SPAddress *address in self.scrollView.visibleCells.addresses) {
+    for (SPAddress *address in self.scrollView.visibleHorizontalGridlines.addresses) {
         Gridline *gridline = self.scrollView.visibleHorizontalGridlines[address];
         if (gridline) {
             [gridline removeFromSuperlayer];
