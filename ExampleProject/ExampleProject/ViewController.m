@@ -23,7 +23,7 @@
     
     self.spreadsheetView.backgroundColor = UIColor.clearColor;
     UIView* backgroundView = [[UIView alloc] init];
-    backgroundView.backgroundColor = UIColor.clearColor;
+    backgroundView.backgroundColor = UIColor.whiteColor;
     self.spreadsheetView.backgroundView = backgroundView;
     self.spreadsheetView.overlayView.backgroundColor = UIColor.clearColor;
     
@@ -34,7 +34,8 @@
     self.spreadsheetView->circularScrollingOptions.tableStyle = 0;
     self.spreadsheetView->circularScrollingOptions.headerStyle = 0;
     
-    self.spreadsheetView.gridStyle = [[GridStyle alloc] initWithWidth:1.0 color:UIColor.blackColor];
+    self.spreadsheetView.intercellSpacing = CGSizeMake(1, 1);
+    self.spreadsheetView.gridStyle = [[GridStyle alloc] initWithWidth:1.0 color:UIColor.lightGrayColor];
     
     [self.spreadsheetView registerCellClass:[Cell class] forCellWithReuseIdentifier:@"DemoCell"];
 }
@@ -61,7 +62,8 @@
     
     static NSString *cellIdentifier = @"DemoCell";
     Cell *cell = [spreadsheetView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-    cell.backgroundColor = UIColor.lightGrayColor;
+    cell.backgroundColor = UIColor.whiteColor;
+    cell.gridlines = [Gridlines all:[[GridStyle alloc] initWithWidth:1.0 color:UIColor.blueColor]];
     return cell;
 }
 
