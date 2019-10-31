@@ -2,11 +2,7 @@
 # SpreadsheetView-ObjC
 
  
-[![Version](https://img.shields.io/cocoapods/v/SpreadsheetView-ObjC.svg?style=flat)](https://cocoapods.org/pods/SpreadsheetView-ObjC)
-
-[![License](https://img.shields.io/cocoapods/l/SpreadsheetView-ObjC.svg?style=flat)](https://cocoapods.org/pods/SpreadsheetView-ObjC)
-
-[![Platform](https://img.shields.io/cocoapods/p/SpreadsheetView-ObjC.svg?style=flat)](https://cocoapods.org/pods/SpreadsheetView-ObjC)
+[![Version](https://img.shields.io/cocoapods/v/SpreadsheetView-ObjC.svg?style=flat)](https://cocoapods.org/pods/SpreadsheetView-ObjC) [![License](https://img.shields.io/cocoapods/l/SpreadsheetView-ObjC.svg?style=flat)](https://cocoapods.org/pods/SpreadsheetView-ObjC) [![Platform](https://img.shields.io/cocoapods/p/SpreadsheetView-ObjC.svg?style=flat)](https://cocoapods.org/pods/SpreadsheetView-ObjC)
 
 ## Introduction
 In December of 2017 I needed a spreadsheet view in my Objective C project. I looked for a pod in  [CocoaPods](https://cocoapods.org) and found this one [https://github.com/kishikawakatsumi/SpreadsheetView](https://github.com/kishikawakatsumi/SpreadsheetView) . I loved the pod but unfortunately it didn't support Objective C. So I had to develop the Objective C version of the project.
