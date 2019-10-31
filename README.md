@@ -11,10 +11,6 @@ In December of 2017 I needed a spreadsheet view in my Objective C project. I loo
 ## Overview
 Full configurable spreadsheet view user interfaces for iOS applications. With this framework, you can easily create complex layouts like schedule, Gantt chart, timetable as if you are using Excel.
 
-<img src="Resources/DailySchedule_portrait.png" style="width: 300px; height: 534px;" width="300" height="534"></img>&nbsp;<img src="Resources/DailySchedule_landscape.png" style="width: 534px; height: 300px;" width="534" height="300"></img><br>
-<img src="Resources/Timetable.png" style="width: 300px; height: 534px;" width="300" height="534"></img>&nbsp;
-<img src="Resources/GanttChart.png" style="width: 534px; height: 300px;" width="534" height="300"></img>
-
 ## Features
 - [x] Fixed column and row headers
 - [x] Merge cells
